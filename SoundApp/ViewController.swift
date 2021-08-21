@@ -61,7 +61,7 @@ class ViewController: UIViewController {
    
         
     @objc func numberPressed(_ sender: UIButton){
-        
+        print(method)
     }
 
 }
