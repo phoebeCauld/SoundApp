@@ -9,9 +9,9 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
-
-    var player: AVAudioPlayer!
+    
+    
+    var player: AVAudioPlayer?
     
     let color: [UIColor] = [.systemRed,.systemOrange,.systemYellow,.systemGreen,.systemIndigo,.systemBlue,.systemPurple]
     
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     
     
     func setupSoundButton(){
-       
+        
         let stackView = UIStackView()
         var topHeigh:CGFloat = 0
         
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         
         let viewHeight = (view.safeAreaLayoutGuide.layoutFrame.size.height * 0.9) / 7
         let viewWidth = view.safeAreaLayoutGuide.layoutFrame.size.width - 20
-        print(viewHeight)
+        
         for i in 0...letters.count-1 {
             let button = UIButton()
             button.setTitleColor(.white, for: .normal)
@@ -55,28 +55,36 @@ class ViewController: UIViewController {
             button.centerXAnchor.constraint(equalTo: stackView.centerXAnchor).isActive = true
             button.widthAnchor.constraint(equalToConstant: CGFloat(viewWidth - CGFloat(i * 10))).isActive = true
             button.heightAnchor.constraint(equalToConstant: viewHeight * 0.95).isActive = true
-            print(viewHeight - 10)
             
             topHeigh += viewHeight
             
             button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
-    }
-
-    }
-   
+        }
         
+    }
+    
+    
     @objc func numberPressed(_ sender: UIButton){
         for i in 0...letters.count-1 {
-        if sender.tag == i+1 {
-            let url = Bundle.main.url(forResource: letters[i], withExtension: "wav")
-                player = try! AVAudioPlayer(contentsOf: url!)
-                player.play()
-
+            if sender.tag == i+1 {
+                guard let url = Bundle.main.url(forResource: letters[i], withExtension: "wav") else {
+                    print ("url is not found")
+                    return
+                }
+                do {
+                    player = try AVAudioPlayer(contentsOf: url)
+                    guard let player = player else {return}
+                    player.play()
+                    
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+                
+            }
         }
+        
+        
+        
     }
-    
- 
-    
-}
 }
 
