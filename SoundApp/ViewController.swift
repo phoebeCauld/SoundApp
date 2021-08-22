@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         setupSoundButton()
     }
     
-    
     func setupSoundButton(){
         
         let stackView = UIStackView()
@@ -60,9 +59,7 @@ class ViewController: UIViewController {
             
             button.addTarget(self, action: #selector(numberPressed), for: .touchUpInside)
         }
-        
     }
-    
     
     @objc func numberPressed(_ sender: UIButton){
         for i in 0...letters.count-1 {
@@ -79,12 +76,8 @@ class ViewController: UIViewController {
                 } catch let error {
                     print(error.localizedDescription)
                 }
-                
             }
         }
-        
-        
-        
     }
 }
 
