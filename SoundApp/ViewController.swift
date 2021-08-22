@@ -6,10 +6,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
+
+    var player: AVAudioPlayer!
     
+    let color: [UIColor] = [.systemRed,.systemOrange,.systemYellow,.systemGreen,.systemIndigo,.systemBlue,.systemPurple]
+    
+    let letters = ["C","D","E","F","G","A","B"]
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSoundButton()
@@ -17,8 +23,7 @@ class ViewController: UIViewController {
     
     
     func setupSoundButton(){
-        let color: [UIColor] = [.systemRed,.systemOrange,.systemYellow,.systemGreen,.systemIndigo,.systemBlue,.systemPurple]
-        let letters = ["C","D","E","F","G","A","B"]
+       
         let stackView = UIStackView()
         var topHeigh:CGFloat = 0
         
@@ -61,8 +66,17 @@ class ViewController: UIViewController {
    
         
     @objc func numberPressed(_ sender: UIButton){
-        print(method)
-    }
+        for i in 0...letters.count-1 {
+        if sender.tag == i+1 {
+            let url = Bundle.main.url(forResource: letters[i], withExtension: "wav")
+                player = try! AVAudioPlayer(contentsOf: url!)
+                player.play()
 
+        }
+    }
+    
+ 
+    
+}
 }
 
