@@ -62,6 +62,15 @@ class ViewController: UIViewController {
     }
     
     @objc func numberPressed(_ sender: UIButton){
+        UIView.animate(withDuration: 0.2, animations: {
+            sender.alpha = 0.5
+        }, completion: {done in
+            if done {
+                UIView.animate(withDuration: 0.2, animations: {
+                    sender.alpha = 1
+                })
+            }
+        })
         for i in 0...letters.count-1 {
             if sender.tag == i+1 {
                 guard let url = Bundle.main.url(forResource: letters[i], withExtension: "wav") else {
